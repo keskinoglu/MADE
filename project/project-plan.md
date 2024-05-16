@@ -36,7 +36,14 @@ This data is from a 2009 study which used proxy data from around the world to es
 
 <!-- List of work packages ordered sequentially, each pointing to an issue with more details. -->
 
-1. Example Issue [#1][i1]
-2. ...
+1. Collect necessary data from Datasource1: Deutscher Wetterdienst (DWD) [#1][i1]
+2. Understand and extract Datasource2: Michael E. Mann Study [#2][i2]
+3. Connect the two data into a single time series for analysis [#3][i3]
+4. Optimum temperatures for the current wine produced in the region [#4][i4]
+5. Compare the pre- little ice age period to the current temperatures [#5][i5]
 
-[i1]: https://github.com/jvalue/made-template/issues/1
+[i1]: https://github.com/keskinoglu/MADE/issues/1
+[i2]: https://github.com/keskinoglu/MADE/issues/2
+[i3]: https://github.com/keskinoglu/MADE/issues/3
+[i4]: https://github.com/keskinoglu/MADE/issues/4
+[i5]: https://github.com/keskinoglu/MADE/issues/5
