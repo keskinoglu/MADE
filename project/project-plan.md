@@ -20,17 +20,20 @@ Despite the negative effects of climate change, some wine varietals thrive in wa
 
 ### Datasource1: Deutscher Wetterdienst (DWD) Station 282 Bamberg
 * Metadata URL: https://opendata.dwd.de/climate_environment/CDC/Readme_intro_CDC_ftp.pdf
-* Data URL: https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/monthly/kl/historical/monatswerte_KL_00282_19490101_20221231_hist.zip
+* Data URL: https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/monthly/kl/historical/monatswerte_KL_00282_18810101_20231231_hist.zip
 * Data Type: TXT
 
 This data is from the German weather service DWD at node 282 in Bamberg. We'll be using the air temperature monthly aggregate from 1949 - 2024.
 
 ### Datasource2: Deutscher Wetterdienst (DWD) Station 5705 Würzburg
 * Metadata URL: https://www.science.org/doi/suppl/10.1126/science.1177303/suppl_file/mann.som.pdf
-* Data URL: https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/monthly/kl/historical/monatswerte_KL_05705_18810101_20221231_hist.zip
+* Data URL: https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/monthly/kl/historical/monatswerte_KL_05705_18810101_20231231_hist.zip
 * Data Type: TXT
 
 This data is from the German weather service DWD at node 5705 in Würzburg. We'll be using the air temperature monthly aggregate from 1949 - 2024.
+
+### Datasource Header Information
+* Metadata on header info URL: https://wetterdienst.readthedocs.io/en/latest/data/coverage/dwd/observation/monthly.html
 
 ## Work Packages
 
