@@ -1,0 +1,45 @@
+pipeline ProjectPipeline {
+    ProjectExtractor
+        // -> ProjectTextFileInterpreter
+        -> ProjectArchiveInterpreter
+        -> ProjectFilePicker
+        -> ProjectTextFileInterpreter
+        -> ProjectCSVInterpreter
+        // -> NameHeaderWriter // not rewriting any column names
+        // -> ProjectColumnDeleter
+        -> ProjectTableInterpreter
+        -> ProjectLoader;
+
+    block ProjectExtractor oftype HttpExtractor {
+        url: "https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/monthly/kl/historical/monatswerte_KL_00282_19490101_20221231_hist.zip";
+        retries: 3;
+    }
+
+    // block ProjectTextFileInterpreter oftype TextFileInterpreter { }
+
+    block ProjectArchiveInterpreter oftype ArchiveInterpreter {
+        archiveType: "zip";
+    }
+
+    block ProjectFilePicker oftype FilePicker {
+        path: "./produkt_klima_monat_19490101_20221231_00282.txt";
+    }
+
+    block ProjectTextFileInterpreter oftype TextFileInterpreter { }
+
+    block ProjectCSVInterpreter oftype CSVInterpreter {
+        delimiter: ";";
+    }
+
+    block ProjectTableInterpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+            "test" oftype text
+        ];
+    }
+
+    block ProjectLoader oftype SQLiteLoader {
+        table: "project";
+        file: "./project.sqlite";
+    }
+}

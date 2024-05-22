@@ -2,35 +2,35 @@
 
 ## Title
 <!-- Give your project a short title. -->
-Beer or Wine: the impact of climate change on upper Franconia's wine region
+Beer or Wine: the impact of climate change on Bamberg's vineyards
 
 ## Main Question
 
 <!-- Think about one main question you want to answer based on the data. -->
-1. Can upper Franconia produce more wine due to warmer weather?
+1. Can Franconia's wine region now include Bamberg due to warmer weather?
 
 ## Description
 
 <!-- Describe your data science project in max. 200 words. Consider writing about why and how you attempt it. -->
-Despite the negative effects of climate change, some wine varietals thrive in warmer climates. For instance, Bamberg, once a wine-producing region, could potentially regain its status due to rising temperatures. Analyzing climate data and comparing it to historical weather patterns will provide valuable insights.
+Despite the negative effects of climate change, some wine varietals thrive in warmer climates. For instance, Bamberg, once a wine-producing region, could potentially regain its status due to rising temperatures. Analyzing climate data from nearby Würzburg, at the heart of the Franconian winemaking region, will yield results.
 
 ## Datasources
 
 <!-- Describe each datasources you plan to use in a section. Use the prefic "DatasourceX" where X is the id of the datasource. -->
 
-### Datasource1: Deutscher Wetterdienst (DWD)
-* Metadata URL: https://cdc.dwd.de/portal/202209231028/mapview
-* Data URL: https://cdc.dwd.de/portal/202209231028/mapview
-* Data Type: CSV
+### Datasource1: Deutscher Wetterdienst (DWD) Station 282 Bamberg
+* Metadata URL: https://opendata.dwd.de/climate_environment/CDC/Readme_intro_CDC_ftp.pdf
+* Data URL: https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/monthly/kl/historical/monatswerte_KL_00282_19490101_20221231_hist.zip
+* Data Type: TXT
 
-This data is from the German weather service and collects temperature data from nodes throughout Germany, leading to accurate and local surface temperature on an hourly, daily, monthly and annually aggregated basis.
+This data is from the German weather service DWD at node 282 in Bamberg. We'll be using the air temperature monthly aggregate from 1949 - 2024.
 
-### Datasource2: Michael E. Mann Study
+### Datasource2: Deutscher Wetterdienst (DWD) Station 5705 Würzburg
 * Metadata URL: https://www.science.org/doi/suppl/10.1126/science.1177303/suppl_file/mann.som.pdf
-* Data URL: https://www.science.org/doi/suppl/10.1126/science.1177303/suppl_file/multiproxyspatial09.zip
-* Data Type: CSV
+* Data URL: https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/monthly/kl/historical/monatswerte_KL_05705_18810101_20221231_hist.zip
+* Data Type: TXT
 
-This data is from a 2009 study which used proxy data from around the world to estimate surface temperature from 500 A.D. to the mid-19th century.
+This data is from the German weather service DWD at node 5705 in Würzburg. We'll be using the air temperature monthly aggregate from 1949 - 2024.
 
 ## Work Packages
 
