@@ -1,5 +1,5 @@
 .DS_Store
 /data/*
 !/data/.gitkeep
-/project/project.py
+/project/FranconianWeather.jv
 /project/*.sqlite
