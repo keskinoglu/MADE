@@ -100,12 +100,12 @@ pipeline FranconianWeatherPipeline {
 
     block BambergStationLoader oftype SQLiteLoader {
         table: "franconian-weather";
-        file: "./franconian-weather.sqlite";
+        file: "../data/franconian-weather.sqlite";
         dropTable: false;
     }
     block WuerzburgStationLoader oftype SQLiteLoader {
         table: "franconian-weather";
-        file: "./franconian-weather.sqlite";
+        file: "../data/franconian-weather.sqlite";
         // dropTable: false;
     }
 }
