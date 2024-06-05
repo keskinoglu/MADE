@@ -29,6 +29,13 @@ def load_txt_from_zip(zip_filename, txt_filename):
 
     return df
 
+def clean_df(df):
+    df.drop(columns=['eor'], inplace=True) # DWD data contains eor (end of record) column that we don't need.
+
+    # DWD replaces missing or invalid data with -999. We need something better since comparing
+    # missing or invalid data to valid data points should not be possible.
+    df.replace(-999, pd.NA, inplace=True) 
+
 def save_to_sqlite(pandas_df, table_name):
     db_location = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), "data", f"{table_name}.sqlite")
     conn = sqlite3.connect(db_location)
