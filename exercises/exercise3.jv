@@ -1,0 +1,144 @@
+pipeline GoodsPipeline {
+    GoodsExtractor
+    -> GoodsTextFileInterpreter
+    -> GoodsCSVInterpreter
+    //-> GoodsRowDeleter
+    -> GoodsCellRangeSelector
+    -> GoodsColumnDeleter
+    -> GoodsTimeAndTransportedHeaderWriter
+    -> GoodsQuantityHeaderWriter
+    -> GoodsTableInterpreter
+    -> GoodsLoader;
+
+    block GoodsExtractor oftype HttpExtractor {
+        url: "https://www-genesis.destatis.de/genesis/downloads/00/tables/46131-0014_00.csv";
+    }
+
+    block GoodsTextFileInterpreter oftype TextFileInterpreter {
+        encoding: "latin2";
+    }
+
+    block GoodsCSVInterpreter oftype CSVInterpreter {
+        delimiter: ";";
+    }
+
+    //block GoodsRowDeleter oftype RowDeleter {
+    //    delete: [row 1, row 2, row 3, row 4, row 5, row 6, row 7, row 41337, row 41338, row 41339];
+    //}
+
+    block GoodsCellRangeSelector oftype CellRangeSelector {
+        select: range A8:AU41337;
+    }
+
+    block GoodsColumnDeleter oftype ColumnDeleter {
+        delete: [
+			column F,
+			column G,
+			column H,
+			column I,
+			column J,
+			column K,
+			column L,
+			column M,
+			column N,
+			column O,
+			column P,
+			column Q,
+			column R,
+			column S,
+			column T,
+			column U,
+			column V,
+			column W,
+			column X,
+			column Y,
+			column Z,
+			column AA,
+			column AB,
+			column AC,
+			column AD,
+			column AE,
+			column AF,
+			column AG,
+			column AH,
+			column AI,
+			column AJ,
+			column AK,
+			column AL,
+			column AM,
+			column AN,
+			column AO,
+			column AP,
+			column AQ,
+			column AR,
+			column AS
+        ];
+    }
+
+    block GoodsTimeAndTransportedHeaderWriter oftype CellWriter {
+        at: range A1:E1;
+        write: ['year', 'month', 'goods_id', 'goods_name', 'goods_source'];
+    }
+
+    block GoodsQuantityHeaderWriter oftype CellWriter {
+        at: range F1:G1;
+        write: ['abroad', 'total'];
+    }
+
+    block GoodsTableInterpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+            "year" oftype PositiveInteger,
+            "month" oftype Month,
+            "goods_id" oftype IdCode,
+            "goods_name" oftype text,
+            "goods_source" oftype text, 
+            "abroad" oftype PositiveInteger,
+            "total" oftype PositiveInteger
+        ];
+    }
+
+    valuetype PositiveInteger oftype integer {
+        constraints: [
+            PositiveRange
+        ];
+    }
+    constraint PositiveRange on decimal:
+        value >= 0;
+
+    valuetype Month oftype text {
+        constraints: [
+            CapitalizedGermanMonths
+        ];
+    }
+    constraint CapitalizedGermanMonths oftype AllowlistConstraint {
+        allowlist: [
+            'Januar',
+            'Februar',
+            'März',
+            'April',
+            'Mai',
+            'Juni',
+            'Juli',
+            'August',
+            'September',
+            'Oktober',
+            'November',
+            'Dezember'
+        ];
+    }
+
+    valuetype IdCode oftype text {
+        constraints: [
+            NST
+        ];
+    }
+    constraint NST oftype RegexConstraint {
+        regex: /^NST7-[0-9A-Z]{3}$/;
+    }
+
+    block GoodsLoader oftype SQLiteLoader {
+        table: "goods";
+        file: "./goodsTransportedByTrain.sqlite";
+    }
+}

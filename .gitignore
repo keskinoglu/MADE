@@ -4,4 +4,4 @@
 /project/FranconianWeather.jv
 /project/*.sqlite
 /project/__pycache__/*
-/exercises/*.sqlite~
+/exercises/*.sqlite
