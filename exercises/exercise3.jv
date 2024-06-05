@@ -2,7 +2,6 @@ pipeline GoodsPipeline {
     GoodsExtractor
     -> GoodsTextFileInterpreter
     -> GoodsCSVInterpreter
-    //-> GoodsRowDeleter
     -> GoodsCellRangeSelector
     -> GoodsColumnDeleter
     -> GoodsTimeAndTransportedHeaderWriter
@@ -21,10 +20,6 @@ pipeline GoodsPipeline {
     block GoodsCSVInterpreter oftype CSVInterpreter {
         delimiter: ";";
     }
-
-    //block GoodsRowDeleter oftype RowDeleter {
-    //    delete: [row 1, row 2, row 3, row 4, row 5, row 6, row 7, row 41337, row 41338, row 41339];
-    //}
 
     block GoodsCellRangeSelector oftype CellRangeSelector {
         select: range A8:AU41337;
