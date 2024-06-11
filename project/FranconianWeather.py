@@ -4,6 +4,7 @@ import pandas as pd
 import zipfile
 import sqlite3
 
+# DWD historical data URL hardcoded into function.
 def download_file(filename):
     url = "https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/monthly/kl/historical/" + filename
 
@@ -27,14 +28,17 @@ def load_txt_from_zip(zip_filename, txt_filename):
         with zip_ref.open(txt_filename) as file:
             df = pd.read_csv(file, delimiter=";")
 
+    clean_df(df)
+
     return df
 
 def clean_df(df):
-    df.drop(columns=['eor'], inplace=True) # DWD data contains eor (end of record) column that we don't need.
+    if "eor" in df.columns:
+        df.drop(columns=["eor"], inplace=True) # DWD data contains eor (end of record) column that we don't need.
 
     # DWD replaces missing or invalid data with -999. We need something better since comparing
     # missing or invalid data to valid data points should not be possible.
-    df.replace(-999, pd.NA, inplace=True) 
+    df.replace(-999, pd.NA, inplace=True)
 
 def save_to_sqlite(pandas_df, table_name):
     db_location = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), "data", f"{table_name}.sqlite")
