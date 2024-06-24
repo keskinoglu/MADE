@@ -38,6 +38,11 @@ jobs:
         with:
           python-version: 3.11
 
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+
       # Navigate back to the root directory of your local repository
       - name: Navigate to local repository
         run: |
