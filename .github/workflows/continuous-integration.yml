@@ -1,7 +1,10 @@
 name: Continuous Integration
 run-name: ${{ github.actor }} is testing out main branch push.
 
-on: [push]
+on:
+  push:
+    paths:
+      - project/**
 
 jobs:
   Explore-GitHub-Actions:
