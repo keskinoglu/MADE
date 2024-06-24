@@ -37,7 +37,7 @@ jobs:
         run: |
           ls ${{ github.workspace }}
 
-      # Second sanity check
+      # Second sanity check #Test.py is renaming itself, why?
       - name: List files in the project directory
         run: |
           ls -la project/
@@ -48,4 +48,3 @@ jobs:
         run: |
           chmod +x project/tests.sh
           ./project/tests.sh
-        #working-directory: ./project
