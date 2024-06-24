@@ -14,21 +14,9 @@ jobs:
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       
-      - name: Check out jvalue repository
+      # Check out local repo
+      - name: Check out main repository
         uses: actions/checkout@v3
-        with:
-          repository: jvalue/made-exercise-feedback
-          path: grading
-      
-      - name: Set up Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: "lts/*"
-
-      # Install jayvee
-      - name: Set up Jayvee
-        run: |
-          ./grading/ci/setup_jayvee.sh
 
       # Install python
       - name: Set up Python 3.11
@@ -36,20 +24,12 @@ jobs:
         with:
           python-version: 3.11
 
-      # Check out local repo
-      - name: Check out main repository
-        uses: actions/checkout@v3
-        with:
-          path: project
-
-      # Sanity check
-      - name: List files in the repository
+      - name: Install dependencies
         run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+          pip install -r ./project/requirements.txt
 
       # Run Test.py
       - name: Run tests
         id: run_tests
         run: |
-          ./tests.sh
+          ./project/tests.sh
