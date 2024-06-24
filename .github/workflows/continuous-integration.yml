@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - project/**
+    #paths:
+    #  - project/**
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
