@@ -16,7 +16,7 @@ jobs:
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       
-      - name: Check out repository code
+      - name: Check out jvalue repository
         uses: actions/checkout@v3
         with:
           repository: jvalue/made-exercise-feedback
@@ -37,6 +37,12 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: 3.11
+
+      # Check out local repo
+      - name: Check out main repository
+        uses: actions/checkout@v3
+        with:
+          path: project
 
       - name: List files in the repository
         run: |
