@@ -5,8 +5,6 @@ on:
   push:
     branches:
       - main
-    #paths:
-    #  - project/**
 
 jobs:
   Explore-GitHub-Actions:
@@ -54,5 +52,4 @@ jobs:
       - name: Run tests
         id: run_tests
         run: |
-          chmod +x /project/tests.sh
-          /project/tests.sh
+          project/tests.sh
