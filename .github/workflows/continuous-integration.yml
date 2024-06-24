@@ -24,9 +24,12 @@ jobs:
         with:
           python-version: 3.11
 
-      - name: Install dependencies
+      - name: Update Pip
         run: |
           pip install --upgrade pip
+
+      - name: Install dependencies
+        run: |
           pip install -r ./project/requirements.txt
 
       # Run Test.py
