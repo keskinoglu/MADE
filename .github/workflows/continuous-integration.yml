@@ -24,11 +24,6 @@ jobs:
         with:
           python-version: 3.11
 
-      # Sanity check
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-
       - name: Update Pip
         run: |
           pip install --upgrade pip
@@ -36,6 +31,11 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r ./project/requirements.txt
+          
+      # Sanity check
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
 
       # Run Test.py
       - name: Run tests
