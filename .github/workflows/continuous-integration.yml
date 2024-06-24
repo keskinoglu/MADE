@@ -31,11 +31,16 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r ./project/requirements.txt
-          
+
       # Sanity check
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
+
+      # Second sanity check
+      - name: List files in the project directory
+        run: |
+          ls -la project/
 
       # Run Test.py
       - name: Run tests
