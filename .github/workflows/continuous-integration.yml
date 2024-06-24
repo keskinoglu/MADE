@@ -52,4 +52,4 @@ jobs:
       - name: Run tests
         id: run_tests
         run: |
-          project/tests.sh
+          ./tests.sh
