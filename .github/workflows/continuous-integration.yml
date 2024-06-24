@@ -24,6 +24,11 @@ jobs:
         with:
           python-version: 3.11
 
+      # Sanity check
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+
       - name: Update Pip
         run: |
           pip install --upgrade pip
