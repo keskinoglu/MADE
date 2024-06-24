@@ -38,6 +38,11 @@ jobs:
         with:
           python-version: 3.11
 
+      # Navigate back to the root directory of your local repository
+      - name: Navigate to local repository
+        run: |
+          cd main
+
       # Run Test.py
       - name: Run tests
         id: run_tests
