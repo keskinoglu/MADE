@@ -112,7 +112,7 @@ pipeline BatteryTempPipeline {
 
     block BatteryTempLoader oftype SQLiteLoader {
         table: "temperatures";
-        file: "../data/temperatures.sqlite";
+        file: "./temperatures.sqlite";
     }
 
     // SQL DB
