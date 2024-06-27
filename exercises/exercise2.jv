@@ -2,7 +2,6 @@ pipeline TreesPipeline {
     TreesExtractor
         -> TreesTextFileInterpreter
         -> TreesCSVInterpreter
-        // -> NameHeaderWriter // not rewriting any column names
         -> TreesColumnDeleter
         -> TreesTableInterpreter
         -> TreesLoader;

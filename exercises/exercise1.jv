@@ -2,7 +2,6 @@ pipeline AirportsPipeline {
     AirportsExtractor
         -> AirportsTextFileInterpreter
         -> AirportsCSVInterpreter
-        // -> NameHeaderWriter // not rewriting any column names
         -> AirportsTableInterpreter
         -> AirportsLoader;
 
