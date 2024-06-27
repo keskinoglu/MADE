@@ -26,9 +26,7 @@ pipeline StopsPipeline {
 
     // FILE
 
-    block StopsTextFileInterpreter oftype TextFileInterpreter {
-       // encoding: "latin2"; // seems to break the umlauts for some reason. Default UTF-8.
-    }
+    block StopsTextFileInterpreter oftype TextFileInterpreter { }
 
     // TEXT FILE
 
