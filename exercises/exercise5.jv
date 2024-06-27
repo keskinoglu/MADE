@@ -1,0 +1,86 @@
+pipeline StopsPipeline {
+    StopsExtractor
+    -> StopsArchiveInterpreter
+    -> StopsFilePicker
+    -> StopsTextFileInterpreter
+    -> StopsCSVInterpreter
+    -> StopsTableInterpreter
+    -> StopsLoader;
+
+
+    block StopsExtractor oftype HttpExtractor {
+        url: "https://gtfs.rhoenenergie-bus.de/GTFS.zip";
+    }
+
+    // FILE
+
+    block StopsArchiveInterpreter oftype ArchiveInterpreter {
+        archiveType: "zip";
+    }
+
+    // FILE SYSTEM
+
+    block StopsFilePicker oftype FilePicker {
+        path: "/stops.txt";
+    }
+
+    // FILE
+
+    block StopsTextFileInterpreter oftype TextFileInterpreter {
+       // encoding: "latin2"; // seems to break the umlauts for some reason. Default UTF-8.
+    }
+
+    // TEXT FILE
+
+    block StopsCSVInterpreter oftype CSVInterpreter {
+        delimiter: ",";
+        enclosing: '"';
+    }
+
+    // SHEET
+
+        block StopsTableInterpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+            "stop_id" oftype PositiveInt,
+            "stop_name" oftype text,
+            "stop_lat" oftype GeoFilter,
+            "stop_lon" oftype GeoFilter,
+            "zone_id" oftype ZoneFilter
+        ];
+    }
+
+    valuetype PositiveInt oftype integer {
+        constraints: [
+            PositiveRange
+        ];
+    }
+    constraint PositiveRange on integer:
+        value >= 0;
+
+    valuetype ZoneFilter oftype integer {
+        constraints: [
+            Zone_1645
+        ];
+    }
+    constraint Zone_1645 on integer:
+        value >= 1645 and value <= 1645;
+
+    valuetype GeoFilter oftype decimal {
+        constraints: [
+            Neg90toPos90
+        ];
+    }
+    constraint Neg90toPos90 on decimal:
+        value >= -90 and value <= 90;
+
+    // TABLE
+
+    block StopsLoader oftype SQLiteLoader {
+        table: "stops";
+        file: "./gtfs.sqlite";
+    }
+
+    // SQL DB
+
+}
