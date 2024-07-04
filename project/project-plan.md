@@ -39,6 +39,7 @@ This data is from the German weather service DWD at node 5705 in Würzburg. We'l
 ## Work Packages
 
 <!-- List of work packages ordered sequentially, each pointing to an issue with more details. -->
+<!-- TODO: update with new research question. -->
 
 1. Collect necessary data from Datasource1: Deutscher Wetterdienst (DWD) [#1][i1]
 2. Understand and extract Datasource2: Michael E. Mann Study [#2][i2]

@@ -40,6 +40,15 @@ def clean_df(df):
     # missing or invalid data to valid data points should not be possible.
     df.replace(-999, pd.NA, inplace=True)
 
+    # The date format is originally in YYYYMMDD. We also don't want time.
+    df["MESS_DATUM_BEGINN"] = pd.to_datetime(df["MESS_DATUM_BEGINN"], format='%Y%m%d').dt.date
+    df["MESS_DATUM_ENDE"] = pd.to_datetime(df["MESS_DATUM_ENDE"], format='%Y%m%d').dt.date
+
+    # New YYYY-MM column since the days are often unnecessary.
+    df["DATE"] = pd.to_datetime(df["MESS_DATUM_BEGINN"].apply(lambda x: x.strftime('%Y-%m')))
+    date_series = df.pop("DATE")
+    df.insert(1, "DATE", date_series)
+
 def save_to_sqlite(pandas_df, table_name):
     db_location = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), "data", f"{table_name}.sqlite")
     conn = sqlite3.connect(db_location)
@@ -51,6 +60,29 @@ def save_to_sqlite(pandas_df, table_name):
         print("Error occurred while saving data to SQLite database:", str(e))
 
     conn.close()
+
+def save_to_csv(pandas_df, filename):
+    csv_location = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), "data", f"{filename}.csv")
+
+    try:
+        pandas_df.to_csv(csv_location, index=False)
+        print("Data saved to CSV successfully!")
+    except Exception as e:
+        print("Error occurred while saving data to CSV:", str(e))
+
+def load_from_sqlite(table_name):
+    db_location = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), "data", f"{table_name}.sqlite")
+    conn = sqlite3.connect(db_location)
+
+    try:
+        df = pd.read_sql_query(f'SELECT * FROM "{table_name}"', conn, parse_dates=['DATE'])
+        print("Data loaded from SQLite database successfully!")
+    except Exception as e:
+        print("Error occurred while loading data from SQLite database:", str(e))
+
+    conn.close()
+
+    return df
 
 def main():
     bamberg = "monatswerte_KL_00282_18810101_20231231_hist.zip"
@@ -68,6 +100,7 @@ def main():
     combined_df = pd.concat([bamberg_df, wuerzburg_df])
 
     save_to_sqlite(combined_df, 'franconian-weather')
+    save_to_csv(combined_df, 'franconian-weather')
 
 if __name__ == "__main__":
     main()
